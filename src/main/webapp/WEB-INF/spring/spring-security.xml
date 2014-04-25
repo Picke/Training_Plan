@@ -14,7 +14,6 @@
 		<intercept-url pattern="/sign_in"  access="isAnonymous()" />
         <intercept-url pattern="/admin/**"  access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/user/**"  access="hasRole('ROLE_USER')" />
-        <!--<intercept-url pattern="/**" access="isAuthenticated()" />-->
 
 		<form-login 
 		    login-page="/sign_in"
