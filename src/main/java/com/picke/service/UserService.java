@@ -9,7 +9,7 @@ public interface UserService {
 
     public User getUserByUserName(String userName);
 
-    public List<GrantedAuthority> getAuthoritiesByUserName(String userName);
+    public List<String> getAuthoritiesByUserName(String userName);
 
     public List<User> getAllUsers();
 

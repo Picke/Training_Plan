@@ -2,6 +2,7 @@ package com.picke.service;
 
 import com.picke.dao.UserDAO;
 import com.picke.entity.User;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,26 +20,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUserName(String userName) {
-        User user = new User();
-        user.setUsername("user");
-        user.setPassword("user");
-        user.setAuthority("ROLE_USER");
-        return user;
+        return userDao.getUserByUserName(userName);
     }
 
     @Override
-    public List<GrantedAuthority> getAuthoritiesByUserName(String userName) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public List<String> getAuthoritiesByUserName(String userName) {
+        return userDao.getAuthoritiesByUserName(userName);  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public List<User> getAllUsers() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return userDao.getAllUsers();  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void addUser(User user) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        userDao.addUser(user);
     }
 
     @Override

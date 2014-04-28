@@ -76,6 +76,10 @@
 				value="${_csrf.token}" />
 
 		</form>
+
+		<c:forEach items="${users}" var="user">
+            <h1>${user}</h1>
+          </c:forEach>
 	</div>
 
 </body>

@@ -3,42 +3,37 @@ package com.picke.service;
 
 import com.picke.dao.UserDAO;
 import com.picke.entity.User;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private UserDAO userDao;
+    private UserDAO userDAO;
 
     @Autowired
-    public void setUserDao(UserDAO userDao) {
-        this.userDao = userDao;
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user;
         try {
-            user = userDao.getUserByUserName(username);
+            user = userDAO.getUserByUserName(username);
         } catch (Exception e) {
             throw new UsernameNotFoundException(
                     "getUserByUserName returned null.");
         }
-        List<String> authorities = new ArrayList<String>();
 
-        ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder(256);
-        user.setPassword(shaPasswordEncoder.encodePassword(user.getPassword(), user.getSalt()));
-//        authorities.add("ROLE_USER");
-        user.setUserAuthorities(userDao.getAuthoritiesByUserName(username));
+        user.setUserAuthorities(userDAO.getAuthoritiesByUserName(username));
 
-        return (UserDetails) user;
+        return user;
         }
 }

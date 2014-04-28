@@ -24,15 +24,15 @@ public class User implements Serializable, UserDetails {
     private String username;
 
     @Column(name="enabled")
-    private String enabled;
+    private boolean enabled;
 
     @Column(name="password")
     private String password;
 
     //bi-directional one-to-one association to Authority
-    @OneToOne
-    @JoinColumn(name="username")
-    private String authority;
+//    @OneToOne
+//    @JoinColumn(name="username")
+//    private String authority;
 
     private String salt;
 
@@ -46,11 +46,7 @@ public class User implements Serializable, UserDetails {
         this.username = username;
     }
 
-    public String getEnabled() {
-        return this.enabled;
-    }
-
-    public void setEnabled(String enabled) {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -64,13 +60,13 @@ public class User implements Serializable, UserDetails {
 
     //Getters and setters for relation property
 
-    public String getAuthority() {
-        return this.authority;
-    }
-
-    public void setAuthority(String authority) {
-        this.authority = authority;
-    }
+//    public String getAuthority() {
+//        return this.authority;
+//    }
+//
+//    public void setAuthority(String authority) {
+//        this.authority = authority;
+//    }
 
     //Spring Security props
 
@@ -92,7 +88,7 @@ public class User implements Serializable, UserDetails {
 
     @Transient
     public boolean isEnabled() {
-        return getEnabled().equals("true");
+        return this.enabled;
     }
 
     @Transient
@@ -117,5 +113,14 @@ public class User implements Serializable, UserDetails {
     public User() {
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", enabled=" + enabled +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", authorities=" + authorities +
+                '}';
+    }
 }

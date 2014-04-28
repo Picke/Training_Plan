@@ -1,7 +1,13 @@
 package com.picke.web;
 
+import com.picke.dao.UserDAO;
+import com.picke.entity.User;
 import com.picke.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class SignInController {
+
+    private static final Logger logger = Logger.getLogger(SignInController.class);
 
     @Autowired
     private UserService userService;
@@ -30,6 +39,9 @@ public class SignInController {
         }
 
         model.setViewName("error");
+
+        logger.error(model);
+
         return model;
 
     }
@@ -49,8 +61,21 @@ public class SignInController {
 
         model.setViewName("sign_in");
 
-        return model;
+        logger.error(model);
 
+        return model;
+    }
+
+    @RequestMapping(value =  "/**", method = RequestMethod.GET)
+    public ModelAndView errorPage() {
+
+        ModelAndView model = new ModelAndView();
+        model.addObject("msg", "Wrong url");
+        model.setViewName("404");
+
+        logger.error(model);
+
+        return model;
     }
 
 }
