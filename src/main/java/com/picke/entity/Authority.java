@@ -1,35 +1,11 @@
 package com.picke.entity;
 
-import java.io.Serializable;
+import org.springframework.security.core.GrantedAuthority;
 
-/**
- * The persistent class for the AUTHORITIES database table.
- *
- */
-
-public class Authority implements Serializable {
+public class Authority implements GrantedAuthority {
     private static final long serialVersionUID = 1L;
 
-
-    private String username;
-
-    private String authority; // Spring Security demands them to start with
-    // "ROLE_"
-
-    // bi-directional one-to-one association to User
-    private User user;
-
-
-    public Authority() {
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    private String authority;
 
     public String getAuthority() {
         return this.authority;
@@ -39,12 +15,6 @@ public class Authority implements Serializable {
         this.authority = authority;
     }
 
-    public User getUser() {
-        return this.user;
+    public Authority() {
     }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
 }

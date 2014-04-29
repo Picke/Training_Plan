@@ -20,9 +20,7 @@ public class AdminController {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring MVC");
         model.addObject("message", "This is welcome page!");
-        model.addObject("username", userService.getCurrentUserName());
-        model.addObject("authority", userService.getCurrentAuthority());
-        model.setViewName("home");
+        model.setViewName("home_page");
         return model;
 
     }
@@ -33,7 +31,7 @@ public class AdminController {
         ModelAndView model = new ModelAndView();
         model.addObject("name", "admin");
         model.addObject("surname", "admin");
-        model.setViewName("info");
+        model.setViewName("info_page");
         return model;
 
     }

@@ -1,4 +1,4 @@
-package com.picke.dao;
-
-public class AuthorityDAOImpl {
-}
+//package com.picke.dao;
+//
+//public class AuthorityDAOImpl {
+//}

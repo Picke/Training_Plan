@@ -11,32 +11,18 @@ import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-@Entity
-@Table(name="users")
-public class User implements Serializable, UserDetails {
+public class User implements UserDetails {
 
-//    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-    //Original props
 
-    @Id
-    @Column(name="username")
     private String username;
 
-    @Column(name="enabled")
     private boolean enabled;
 
-    @Column(name="password")
     private String password;
 
-    //bi-directional one-to-one association to Authority
-//    @OneToOne
-//    @JoinColumn(name="username")
-//    private String authority;
-
     private String salt;
-
-    // Getters & Setters for original props
 
     public String getUsername() {
         return this.username;
@@ -58,21 +44,7 @@ public class User implements Serializable, UserDetails {
         this.password = password;
     }
 
-    //Getters and setters for relation property
-
-//    public String getAuthority() {
-//        return this.authority;
-//    }
-//
-//    public void setAuthority(String authority) {
-//        this.authority = authority;
-//    }
-
-    //Spring Security props
-
     private transient Collection<GrantedAuthority> authorities;
-
-    //UserDetails methods
 
     @Transient
     public Collection<GrantedAuthority> getAuthorities() {  return authorities;}
@@ -97,7 +69,7 @@ public class User implements Serializable, UserDetails {
         for (String role : authorities) {
             listOfAuthorities.add(new GrantedAuthorityImpl(role));
         }
-        this.authorities = (Collection<GrantedAuthority>) listOfAuthorities;
+        this.authorities = listOfAuthorities;
     }
 
     public String getSalt() {
@@ -108,18 +80,15 @@ public class User implements Serializable, UserDetails {
         this.salt = salt;
     }
 
-    //Constructors
-
-    public User() {
+    public User
+            () {
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
-                ", enabled=" + enabled +
                 ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
                 ", authorities=" + authorities +
                 '}';
     }

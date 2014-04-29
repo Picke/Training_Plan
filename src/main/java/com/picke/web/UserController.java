@@ -16,14 +16,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value =  "/home", method = RequestMethod.GET)
+    @RequestMapping(value =  "/home", method = RequestMethod.GET )
     public ModelAndView welcomePage() {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring MVC");
         model.addObject("message", "This is welcome page!");
-        model.addObject("username", userService.getCurrentUserName());
-        model.addObject("authority", userService.getCurrentAuthority());
-        model.setViewName("home");
+        model.setViewName("home_page");
         return model;
     }
 
@@ -33,7 +31,7 @@ public class UserController {
         ModelAndView model = new ModelAndView();
         model.addObject("name", "user");
         model.addObject("surname", "user");
-        model.setViewName("info");
+        model.setViewName("info_page");
         return model;
     }
 

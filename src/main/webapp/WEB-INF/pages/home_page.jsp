@@ -10,8 +10,6 @@
     </span>
 	<h1>${title}</h1>
 	<h1>${message}</h1>
-	<h1>${username}</h1>
-	<h1>${authority}</h1>
 
 	<c:url value="/j_spring_security_logout" var="logoutUrl" />
 	<form action="${logoutUrl}" method="post" id="logoutForm">

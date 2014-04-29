@@ -25,12 +25,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<String> getAuthoritiesByUserName(String userName) {
-        return userDao.getAuthoritiesByUserName(userName);  //To change body of implemented methods use File | Settings | File Templates.
+        return userDao.getAuthoritiesByUserName(userName);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();  //To change body of implemented methods use File | Settings | File Templates.
+        return userDao.getAllUsers();
     }
 
     @Override
@@ -40,35 +40,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        userDao.updateUser(user);
     }
 
     @Override
     public void deleteUser(User user) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public String getCurrentUserName() {
-        Authentication auth = SecurityContextHolder.getContext()
-                .getAuthentication();
-        return auth.getName();
-    }
-
-    @Override
-    public String getCurrentAuthority() {
-        Authentication auth = SecurityContextHolder.getContext()
-                .getAuthentication();
-        String authority = null;
-        for (Iterator iterator = auth.getAuthorities().iterator(); iterator
-                .hasNext();) {
-            authority = (String) iterator.next().toString();
-        }
-        return authority;
-    }
-
-    @Override
-    public boolean isAuthenticated() {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        userDao.deleteUser(user);
     }
 }

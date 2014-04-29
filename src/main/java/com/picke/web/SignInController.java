@@ -1,13 +1,8 @@
 package com.picke.web;
 
-import com.picke.dao.UserDAO;
-import com.picke.entity.User;
 import com.picke.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,15 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 public class SignInController {
 
     private static final Logger logger = Logger.getLogger(SignInController.class);
-
-    @Autowired
-    private UserService userService;
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public ModelAndView accesssDenied(Principal user) {
@@ -61,7 +52,7 @@ public class SignInController {
 
         model.setViewName("sign_in");
 
-        logger.error(model);
+        logger.info(model);
 
         return model;
     }

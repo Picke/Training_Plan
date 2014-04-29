@@ -1,5 +1,6 @@
 package com.picke.dao;
 
+import com.picke.entity.Authority;
 import com.picke.entity.User;
 import com.picke.entity.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,10 @@ import java.util.Map;
 @Transactional
 public class UserDAOImpl implements UserDAO {
 
-    private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public void setJdbcTemplate(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -30,26 +29,32 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getUserByUserName(String userName) {
         String sql = "SELECT * FROM USERS WHERE USERNAME = ?";
-        User user;
-        try{
-        user = (User) jdbcTemplate.queryForObject(
-                sql, new Object[]{userName}, new UserRowMapper());
-        }
-        catch (Exception ex) {
-            return null;
+
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, userName);
+        for (Map row : rows) {
+            User user = new User();
+            user.setUsername((String) row.get("USERNAME"));
+            user.setPassword((String) row.get("PASSWORD"));
+            user.setEnabled((Boolean) row.get("ENABLED"));
+            user.setSalt((String) row.get("SALT"));
+            return user;
         }
 
-        return user;
+        return null;
     }
 
     @Override
     public List<String> getAuthoritiesByUserName(String userName) {
+        String sql = "SELECT * FROM USERS_AUTHORITIES WHERE USER = ?";
+
         List<String> authorities = new ArrayList<String>();
-        if (userName.equals("user")) {
-            authorities.add("ROLE_USER");
-        } else if (userName.equals("admin")) {
-            authorities.add("ROLE_ADMIN");
+
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, userName);
+        for (Map row : rows) {
+            String authority = ((String) row.get("AUTHORITY"));
+            authorities.add(authority);
         }
+
         return authorities;
     }
 
@@ -82,9 +87,8 @@ public class UserDAOImpl implements UserDAO {
 
         int isEnabled = user.isEnabled() ? 1 : 0;
 
-        jdbcTemplate.update(sql, new Object[]{user.getUsername(),
-                user.getPassword(), isEnabled, user.getSalt()
-        });
+        jdbcTemplate.update(sql, user.getUsername(),
+                user.getPassword(), isEnabled, user.getSalt());
     }
 
     @Override
@@ -95,13 +99,13 @@ public class UserDAOImpl implements UserDAO {
         ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder(256);
         user.setPassword(shaPasswordEncoder.encodePassword(user.getPassword(), user.getSalt()));
 
-        jdbcTemplate.update(sql, new Object[]{user.getPassword(),
-                user.getUsername(),
-        });
+        jdbcTemplate.update(sql, user.getPassword(),
+                user.getUsername());
     }
 
     @Override
     public void deleteUser(User user) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        String sql = "DELETE FROM USERS WHERE USERNAME = ?";
+        jdbcTemplate.update(sql, user.getUsername());
     }
 }
