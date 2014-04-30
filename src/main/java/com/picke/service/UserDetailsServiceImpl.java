@@ -3,17 +3,17 @@ package com.picke.service;
 
 import com.picke.dao.UserDAO;
 import com.picke.entity.User;
+import com.picke.web.SignInController;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
+
+    private static final Logger logger = Logger.getLogger(UserDetailsServiceImpl.class);
 
     private UserDAO userDAO;
 
@@ -23,17 +23,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user;
-        try {
-            user = userDAO.getUserByUserName(username);
-        } catch (Exception e) {
-            throw new UsernameNotFoundException(
-                    "getUserByUserName returned null.");
-        }
+    public UserDetails loadUserByUsername(String username) {
+        User user = userDAO.getUserByUserName(username);
 
         user.setUserAuthorities(userDAO.getAuthoritiesByUserName(username));
 
+        logger.info(user.getUsername() + " have been logged in successfully");
+
         return user;
-        }
+    }
 }

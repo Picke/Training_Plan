@@ -1,20 +1,21 @@
 package com.picke.entity;
-import java.io.Serializable;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import javax.persistence.*;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
-import org.springframework.security.core.userdetails.UserDetails;
 
 
 public class User implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
+
+    private int id;
 
     private String username;
 
@@ -23,6 +24,14 @@ public class User implements UserDetails {
     private String password;
 
     private String salt;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return this.username;
@@ -47,16 +56,24 @@ public class User implements UserDetails {
     private transient Collection<GrantedAuthority> authorities;
 
     @Transient
-    public Collection<GrantedAuthority> getAuthorities() {  return authorities;}
+    public Collection<GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 
     @Transient
-    public boolean isAccountNonExpired() { return true;}
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
     @Transient
-    public boolean isAccountNonLocked() { return true; }
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
     @Transient
-    public boolean isCredentialsNonExpired() {return true; }
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
     @Transient
     public boolean isEnabled() {
@@ -67,7 +84,7 @@ public class User implements UserDetails {
     public void setUserAuthorities(List<String> authorities) {
         List<GrantedAuthority> listOfAuthorities = new ArrayList<GrantedAuthority>();
         for (String role : authorities) {
-            listOfAuthorities.add(new GrantedAuthorityImpl(role));
+            listOfAuthorities.add(new SimpleGrantedAuthority(role));
         }
         this.authorities = listOfAuthorities;
     }

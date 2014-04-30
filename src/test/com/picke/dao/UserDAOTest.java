@@ -80,18 +80,24 @@ public class UserDAOTest {
         jdbcTemplate.update(deleteSql);
 
 //        adding 'ROLE_USER' to user
-        sql = "INSERT INTO USERS_AUTHORITIES " +
-                "(ID, USER, AUTHORITY) VALUES ('1', 'user', 'ROLE_USER')";
+        sql = "INSERT INTO USERS_AUTHORITIES (user_id, authority_id) (" +
+                "SELECT usr.id, aut.id FROM users usr " +
+                "INNER JOIN authorities aut ON usr.username = 'user' AND aut.authority = 'ROLE_USER'" +
+                ")";
         jdbcTemplate.update(sql);
 
 //        adding 'ROLE_ADMIN' to admin
-        sql = "INSERT INTO USERS_AUTHORITIES " +
-                "(ID, USER, AUTHORITY) VALUES ('2', 'admin', 'ROLE_ADMIN')";
+        sql = "INSERT INTO USERS_AUTHORITIES (user_id, authority_id) (" +
+                "SELECT usr.id, aut.id FROM users usr " +
+                "INNER JOIN authorities aut ON usr.username = 'admin' AND aut.authority = 'ROLE_ADMIN'" +
+                ")";
         jdbcTemplate.update(sql);
 
 //        adding 'ROLE_USER' to admin
-        sql = "INSERT INTO USERS_AUTHORITIES " +
-                "(ID, USER, AUTHORITY) VALUES ('3', 'admin', 'ROLE_USER')";
+        sql = "INSERT INTO USERS_AUTHORITIES (user_id, authority_id) (" +
+                "SELECT usr.id, aut.id FROM users usr " +
+                "INNER JOIN authorities aut ON usr.username = 'admin' AND aut.authority = 'ROLE_USER'" +
+                ")";
         jdbcTemplate.update(sql);
 
     }

@@ -6,7 +6,7 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-    <resources mapping="/resources/**" location="/resources/" />
+    <!--<resources mapping="/resources/**" location="/resources/" />-->
     <!-- DispatcherServlet Context: определяет настройки одного сервлета; бины,
         которые доступны только ему -->
 
@@ -15,7 +15,7 @@
 
     <!-- Всю статику (изображения, css-файлы, javascript) положим в папку webapp/resources
         и замаппим их на урл вида /resources/** -->
-    <resources mapping="/resources/**" location="/resources/" />
+    <!--<resources mapping="/resources/**" location="/resources/" />-->
 
     <beans:bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">

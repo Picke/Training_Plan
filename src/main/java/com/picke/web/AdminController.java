@@ -1,20 +1,15 @@
 package com.picke.web;
 
-import com.picke.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value =  "/admin")
+@RequestMapping(value = "/admin")
 public class AdminController {
 
-    @Autowired
-    private UserService userService;
-
-    @RequestMapping(value =  "/home", method = RequestMethod.GET)
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView welcomePage() {
 
         ModelAndView model = new ModelAndView();
@@ -25,7 +20,7 @@ public class AdminController {
 
     }
 
-    @RequestMapping(value =  "/info", method = RequestMethod.GET)
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
     public ModelAndView infoPage() {
 
         ModelAndView model = new ModelAndView();
