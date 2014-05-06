@@ -62,7 +62,7 @@ public class UserDAOImpl implements UserDAO {
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
         for (Map row : rows) {
             User user = new User();
-            user.setId((int) row.get("ID"));
+            user.setId((Integer) row.get("ID"));
             user.setUsername((String) row.get("USERNAME"));
             user.setPassword((String) row.get("PASSWORD"));
             user.setSalt((String) row.get("SALT"));

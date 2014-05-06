@@ -15,7 +15,7 @@
         <intercept-url pattern="/admin/**"  access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/user/**"  access="hasRole('ROLE_USER')" />
 
-		<form-login 
+		<form-login
 		    login-page="/sign_in"
 			authentication-failure-url="/sign_in?error"
             authentication-success-handler-ref="mySuccessHandler"

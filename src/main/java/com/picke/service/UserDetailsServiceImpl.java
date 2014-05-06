@@ -3,7 +3,6 @@ package com.picke.service;
 
 import com.picke.dao.UserDAO;
 import com.picke.entity.User;
-import com.picke.web.SignInController;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,17 +1,15 @@
 <?xml  version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- Root Context: определяет ресурсы, доступные всему приложению, всем сервлетам -->
 
     <context:component-scan base-package="com.picke.*" />
 
     <context:annotation-config/>
-    <tx:annotation-driven/>
 
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -29,9 +27,7 @@
 
     <bean id="handlerMapping"
           class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-        <property name="interceptors">
-            <ref bean="localeChangeInterceptor" />
-        </property>
+        <property name="interceptors" ref="localeChangeInterceptor"/>
     </bean>
 
     <!-- Файл с настройками безопасности -->

@@ -82,7 +82,7 @@ public class User implements UserDetails {
 
     @Transient
     public void setUserAuthorities(List<String> authorities) {
-        List<GrantedAuthority> listOfAuthorities = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> listOfAuthorities = new ArrayList<>();
         for (String role : authorities) {
             listOfAuthorities.add(new SimpleGrantedAuthority(role));
         }

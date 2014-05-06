@@ -1,7 +1,6 @@
 package com.picke.service;
 
 import com.picke.entity.User;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 
